@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import YouTube from "react-youtube";
 import axios from "axios";
 import './App.css';
@@ -23,16 +23,16 @@ import starOne from './assets/img/Star 2.png';
 import starTwo from './assets/img/Star 3.png';
 
 function App() {
-    const socialLinks = [telegram, fb, vk, inst];
+    const socialLinks = [{ url: telegram, width: 18.63, height: 15.69}, {url: fb, height: 21.95, width: 22.05}, {url: vk, width: 21.86, height: 12.94}, {url: inst, height: 20, width: 20}];
     const podcasts = [podcast1, podcast2, podcast3, podcast4, podcast5];
     const [arrayOfVideos, setArrayOfVideos] = useState([]);
     const [mainVideo, setMainVideo] = useState('');
     const [previewNewVideo, setPreviewNewVideo] = useState('');
     const [reversedVideos, setReversedVideos] = useState([]);
-    const footerLinks = [telegram, fb, vk, youtube, inst]
-
+    const footerLinks = [{ url: telegram, width: 37.58, height: 31.64}, {url: fb, height: 44.28, width: 44.47}, {url: vk, width: 44.09, height: 26.1}, {url: youtube, width: 42.88, height: 30.97}, {url: inst, height: 46.61, width: 46.61}]
+    const scrollbar = useRef(null)
     const API = async function () {
-        await axios.get('https://www.googleapis.com/youtube/v3/search?key=AIzaSyC-z4vJuB2IH2h_Pn7etU-JnQMiKmkvRVQ&channelId=UCd10-psu5GF3neJYCQ7fkVg&part=snippet,id&order=date&maxResults=20').then(response => {
+        await axios.get('https://www.googleapis.com/youtube/v3/search?key=AIzaSyD_0ytCmKxRB85jeS17w70D5HedRVpP6bk&channelId=UCd10-psu5GF3neJYCQ7fkVg&part=snippet,id&order=date&maxResults=20').then(response => {
             setArrayOfVideos(response.data.items);
             setMainVideo(response.data.items[19].id.videoId);
             setPreviewNewVideo(response.data.items[0].snippet.thumbnails.medium.url)
@@ -49,15 +49,16 @@ function App() {
 
     const handleClick = function (evt) {
         evt.preventDefault();
-        console.log(evt.currentTarget.className)
         if (evt.currentTarget.className !== mainVideo) {
             setMainVideo(evt.currentTarget.className)
         }
 
     }
 
+        const scrollFunction = function (evt) {
+        scrollbar.current.scrollTop = evt.target.scrollTop
+        }
 
-    console.log(mainVideo)
 
     return (
         <div className="App">
@@ -86,8 +87,8 @@ function App() {
                             <p>Слушайте нас, где удобно</p>
                             <div className={'social-container'}>
                                 {
-                                    podcasts.map(podcast => {
-                                        return <a href={'#'} key={podcast} ><img src={podcast} alt={'podcast'} width={50}
+                                    podcasts.map((podcast, index) => {
+                                        return <a href={'#'} key={index} ><img src={podcast} alt={'podcast'} width={50}
                                                                      height={50}/></a>
                                     })
                                 }
@@ -125,7 +126,7 @@ function App() {
                     <div className={'youtube-container'}>
                        <YouTube videoId={mainVideo}/>
 
-                        <div className={'list-of-videos'} >
+                        <div className={'list-of-videos'} onScroll={scrollFunction} >
                             {
                                 reversedVideos.map((video, index) => {
                                     return <div onClick={handleClick} about={video.id.etag} key={video.id.etag} className={video.id.videoId === mainVideo? 'selected' : `${video.id.videoId}`} >
@@ -138,6 +139,18 @@ function App() {
 
                         </div>
 
+                        <div className={'scrollbar'} ref={scrollbar}>
+                            {
+                                reversedVideos.map(video => {
+                                    return <div key={video.id.etag} >
+
+                                        <img src={video.snippet.thumbnails.default.url} width={131} height={74}
+                                             alt={'preview'}/>
+
+                                    </div>
+                                })}
+
+                        </div>
 
                     </div>
 
@@ -145,8 +158,8 @@ function App() {
                         <span>Поделиться:</span>
                         {
                             socialLinks.map(link => {
-                                return <a key={link} href={'#'}><img src={link} height={20.61} width={17.67}
-                                                                     alt={'link'}/> </a>
+                                return <a key={link.height} href={'#'}><img src={link.url} height={link.height} width={link.width}
+                                                                     alt={'link'}/></a>
                             })
                         }
                     </div>
@@ -162,7 +175,7 @@ function App() {
                         {
                             footerLinks.map(link => {
                                 return <a href={'#'}>
-                                    <div key={link} className={'footer-link'}><img src={link} height={30} width={37.5}
+                                    <div key={link.height} className={'footer-link'}><img src={link.url} height={link.height} width={link.width}
                                                                                    alt={'link'}/></div>
                                 </a>
                             })
