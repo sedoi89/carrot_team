@@ -1,13 +1,20 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+    font-family: 'Stag Sans normal' ;
+    src: local('Stag Sans');
+    src: url('./assets/fonts/Stag-Sans-Medium-Web.ttf') format('ttf');
+}
+
+@font-face {
+    font-family: 'Stag Sans italic' ;
+    src: local('Stag Sans');
+    src: url('./assets/fonts/StagSans-MediumItalic.ttf') format('ttf');
+}
+* {
+    font-family: 'Stag Sans', sans-serif;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: 'Stag Sans Medium Web', sans-serif;
 }
