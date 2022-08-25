@@ -293,7 +293,7 @@ body {
 }
 
 .scrollbar {
-    left: 1950px;
+    left: 1590px;
     content: '';
     z-index: -1;
     position: absolute;
