@@ -279,34 +279,35 @@ body {
 }
 
 .list-of-videos {
-    position: relative;
+
     min-width: 391px;
     max-width: 391px;
     max-height: 558px;
     overflow-y: scroll;
     border: 3px solid white;
     border-radius: 20px;
+    margin-right: 10px;
+}
+
+.scrollbar {
+    z-index: -1;
+    min-height: 455px;
+    max-height: 558px;
+    width: 15px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    flex-direction: column;
 }
 
 .list-of-videos::-webkit-scrollbar {
     width: 0
 }
 
-.scrollbar {
-    left: 1590px;
-    content: '';
-    z-index: -1;
-    position: absolute;
-    min-height: 394px;
-    max-height: 558px;
-    min-width: 10px;
-    overflow-y: scroll;
-    flex-direction: column;
-}
+
 
 .scrollbar div {
 
-    padding: 18px 10px 18px 18px;
+    margin: 35px 10px 18px 18px;
 }
 
 .scrollbar img {
