@@ -443,7 +443,8 @@ footer {
 .footer-subscribe-container {
     display: flex;
     flex-direction: column;
-
+    align-self: flex-start;
+    margin-left: 92px;
 }
 
 .footer-subscribe input {
