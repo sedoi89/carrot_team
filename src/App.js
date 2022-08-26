@@ -134,8 +134,9 @@ function App() {
                     </div>
                     <div className={'youtube-container'}>
                         <YouTube videoId={mainVideo}/>
-
+                        <div className={'scrollbar'} ref={scrollbar}>
                         <div className={'list-of-videos'} onScroll={scrollFunction}>
+
                             {
                                 reversedVideos.map((video, index) => {
                                     return <div onClick={handleClick} about={video.id.etag} key={video.id.etag}
@@ -149,16 +150,8 @@ function App() {
 
                         </div>
 
-                        <div className={'scrollbar'} ref={scrollbar}>
-                            {
-                                reversedVideos.map(video => {
-                                    return <div key={video.id.etag}>
 
-                                        <img src={video.snippet.thumbnails.default.url} width={131} height={74}
-                                             alt={'preview'}/>
 
-                                    </div>
-                                })}
 
                         </div>
 
